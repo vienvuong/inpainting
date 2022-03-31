@@ -1,0 +1,12 @@
+export const MIN_BRUSH_SIZE = 1
+export const MAX_BRUSH_SIZE = 200
+export const BRUSH_SIZE_STEP_XS = 1
+export const BRUSH_SIZE_STEP_SM = 5
+export const BRUSH_SIZE_STEP_MD = 10
+export const BRUSH_SIZE_LIMIT_XS = 20
+export const BRUSH_SIZE_LIMIT_SM = 60
+export const PEN_COLOR = 'rgba(189, 255, 1, 0.75)'
+export const ERASER_COLOR = 'rgba(255, 255, 255, 1)'
+export const TOOLBAR_SIZE = 200
+export const MIN_DIST_TO_BRUSH_SIZE_RATIO = 0.05
+export const SCALE_BY = 1.05
