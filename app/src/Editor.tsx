@@ -348,7 +348,7 @@ export default function Editor(props: EditorProps) {
     const render = getRender()
     render.masks = []
     setMaskIdx(-1)
-    setRenders(renders.slice(0, renderIdx))
+    setRenders(renders.slice(0, renderIdx + 1))
   }
 
   const handleScroll = (e: any) => {
