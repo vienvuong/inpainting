@@ -84,7 +84,7 @@ def process():
         io.BytesIO(numpy_to_bytes(res_np_img)),
         mimetype="image/jpeg",
         as_attachment=True,
-        attachment_filename="result.jpeg",
+        download_name="result.jpeg",
     )
 
 
