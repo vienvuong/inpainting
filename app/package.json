@@ -2,7 +2,7 @@
   "name": "lama-cleaner",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@testing-library/jest-dom": "^5.16.2",

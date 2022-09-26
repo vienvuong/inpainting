@@ -22,5 +22,5 @@
     },
     "include": [
         "src"
-, "../../Editor1.tsx"    ]
+    ]
 }

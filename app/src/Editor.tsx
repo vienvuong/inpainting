@@ -110,7 +110,7 @@ export default function Editor(props: EditorProps) {
     }
   }
 
-  const hadDrawSomething = () => {
+  const hadDrawnSomething = () => {
     const { masks } = getRender()
     return masks.length !== 0 && masks[0].points.length !== 0
   }
@@ -315,6 +315,9 @@ export default function Editor(props: EditorProps) {
     e.evt.preventDefault()
   }
 
+  const canUndo = () =>
+    (hadDrawnSomething() || hadRunInpainting()) && (renderIdx || maskIdx > -1)
+
   const undo = () => {
     if (maskIdx === -1) {
       if (renderIdx) {
@@ -493,17 +496,18 @@ export default function Editor(props: EditorProps) {
   )
 
   const displayOriginal = () => {
+    if (showOriginal) return
     setShowSeparator(true)
-    setShowOriginal(true)
     localStorage.setItem('renderIdx', String(renderIdx))
     localStorage.setItem('maskIdx', String(maskIdx))
     setRenderIdx(0)
     setMaskIdx(-1)
     setShowBrush(false)
+    setShowOriginal(true)
   }
 
   const displayCurrent = () => {
-    setShowOriginal(false)
+    if (!showOriginal) return
     setTimeout(() => {
       setShowSeparator(false)
       const oldRenderIdx = Number(localStorage.getItem('renderIdx'))
@@ -511,6 +515,7 @@ export default function Editor(props: EditorProps) {
       setRenderIdx(oldRenderIdx)
       setMaskIdx(oldMaskIdx)
       setShowBrush(true)
+      setShowOriginal(false)
     }, 300)
   }
 
@@ -628,7 +633,7 @@ export default function Editor(props: EditorProps) {
             <Button
               className="mr-2"
               icon={<FaUndo className="w-6 h-6 p-0.5" />}
-              disabled={!hadDrawSomething() && !hadRunInpainting()}
+              disabled={!canUndo()}
               onClick={undo}
             />
             <Button
@@ -640,15 +645,14 @@ export default function Editor(props: EditorProps) {
             <Button
               className="mr-2"
               icon={<FaTimes className="w-6 h-6" />}
-              disabled={!hadDrawSomething()}
+              disabled={!hadDrawnSomething()}
               onClick={clear}
             />
             <Button
               className="mr-2"
               icon={<FaEye className="w-6 h-6" />}
               disabled={!hadRunInpainting()}
-              onDown={ev => {
-                ev.preventDefault()
+              onDown={() => {
                 displayOriginal()
               }}
               onUp={() => {
@@ -665,7 +669,7 @@ export default function Editor(props: EditorProps) {
 
             <Button
               icon={<FaPlay className="w-6 h-6" />}
-              disabled={!hadDrawSomething()}
+              disabled={!hadDrawnSomething()}
               onClick={runInpainting}
             />
           </div>
